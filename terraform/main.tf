@@ -8,14 +8,14 @@ terraform {
     }
   }
   
-  backend "s3" {
-    # Uncomment and configure for remote state
-    # bucket         = "your-terraform-state-bucket"
-    # key            = "xai-dashboard/terraform.tfstate"
-    # region         = "us-east-1"
-    # encrypt        = true
-    # dynamodb_table = "terraform-state-lock"
-  }
+  # backend "s3" {
+  #   # Uncomment and configure for remote state
+  #   # bucket         = "your-terraform-state-bucket"
+  #   # key            = "xai-dashboard/terraform.tfstate"
+  #   # region         = "us-east-1"
+  #   # encrypt        = true
+  #   # dynamodb_table = "terraform-state-lock"
+  # }
 }
 
 provider "aws" {
