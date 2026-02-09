@@ -1,0 +1,80 @@
+# Environment
+environment: ${ENV:dev}
+
+# Paths
+paths:
+  data_dir: data
+  models_dir: models
+  logs_dir: logs
+
+# Data processing
+data:
+  raw_path: ${paths.data_dir}/raw
+  processed_path: ${paths.data_dir}/processed
+  test_size: 0.2
+  val_size: 0.1
+  random_state: 42
+
+  # Feature columns
+  behavioral_features:
+    - lms_logins_per_week
+    - attendance_rate
+    - absences_count
+
+  academic_features:
+    - gpa
+    - failed_courses
+    - grade_average
+
+  engagement_features:
+    - facility_visits
+    - wifi_usage_hours
+    - club_participation
+
+# Models
+models:
+  random_forest:
+    n_estimators: 100
+    max_depth: 10
+    min_samples_split: 2
+    min_samples_leaf: 1
+    class_weight: balanced
+
+  xgboost:
+    n_estimators: 100
+    learning_rate: 0.1
+    max_depth: 6
+    subsample: 0.8
+    colsample_bytree: 0.8
+    scale_pos_weight: 5
+
+# Training
+training:
+  use_smote: true
+  smote_sampling_strategy: 0.5
+  cross_validation_folds: 5
+  hyperparameter_tuning: true
+
+  grid_search:
+    cv: 5
+    scoring: roc_auc
+    n_jobs: -1
+
+# Dashboard
+dashboard:
+  title: "XAI Student Risk Dashboard"
+  port: 8501
+  theme: light
+  max_upload_size: 200  # MB
+
+# AWS
+aws:
+  region: ${AWS_REGION:us-east-1}
+  s3_bucket: ${S3_BUCKET}
+  use_s3: false
+
+# Monitoring
+monitoring:
+  enable_mlflow: false
+  log_level: INFO
+  track_custom_metrics: true
